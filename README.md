@@ -255,3 +255,5 @@ JsBarcode is shared under the [MIT license](https://github.com/lindell/JsBarcode
 [6]: https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.msi.min.js "jsdelivr msi"
 [7]: https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.pharmacode.min.js "jsdelivr pharmacode"
 [8]: https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.codabar.min.js "jsdelivr codabar"
+
+

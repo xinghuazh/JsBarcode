@@ -50,6 +50,7 @@ declare namespace JsBarcode {
     CODE128A(value: string, options?: Code128Options): api;
     CODE128B(value: string, options?: Code128Options): api;
     CODE128C(value: string, options?: Code128Options): api;
+    CODE128ESC1(value: string, options?: Code128Options): api;
     EAN13(value: string, options?: Ean13Options): api;
     EAN8(value: string, options?: Ean8Options): api;
     EAN5(value: string, options?: BaseOptions): api;

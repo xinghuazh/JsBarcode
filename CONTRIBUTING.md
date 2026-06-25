@@ -24,6 +24,34 @@ gulp watch-web # Listens to file changes and re-compiles to JsBarcode.all.js aut
 gulp lint # Checking the code according to the code style specified in .eslintrc
 ````
 
+````
+安装nvm：https://github.com/coreybutler/nvm-windows/releases
+# 1.验证 nvm
+nvm --version
+
+# 2.安装 Node 16
+nvm install 16.20.2
+
+# 3.使用 Node 16
+nvm use 16.20.2
+
+# 4.全局安装 gulp 命令行工具
+npm install --global gulp-cli
+
+# 5.回到项目目录
+cd xxx\JsBarcode
+
+# 6.重新安装（跳过 canvas）
+npm install --no-optional
+
+# 7.执行 gulp 命令
+gulp compile-web
+gulp compile-web --production
+
+# 8. 生成所有文件（包括压缩版本）
+gulp compress
+````
+
 Testing
 ----
 JsBarcode has tests on all barcode symbologies (and more). If you want to test your changes just run ``npm test`` and the code will be compiled and tested.
