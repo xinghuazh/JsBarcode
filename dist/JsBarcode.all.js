@@ -95,33 +95,33 @@ var _barcodes = __webpack_require__(1);
 
 var _barcodes2 = _interopRequireDefault(_barcodes);
 
-var _merge = __webpack_require__(40);
+var _merge = __webpack_require__(41);
 
 var _merge2 = _interopRequireDefault(_merge);
 
-var _linearizeEncodings = __webpack_require__(41);
+var _linearizeEncodings = __webpack_require__(42);
 
 var _linearizeEncodings2 = _interopRequireDefault(_linearizeEncodings);
 
-var _fixOptions = __webpack_require__(42);
+var _fixOptions = __webpack_require__(43);
 
 var _fixOptions2 = _interopRequireDefault(_fixOptions);
 
-var _getRenderProperties = __webpack_require__(43);
+var _getRenderProperties = __webpack_require__(44);
 
 var _getRenderProperties2 = _interopRequireDefault(_getRenderProperties);
 
-var _optionsFromStrings = __webpack_require__(45);
+var _optionsFromStrings = __webpack_require__(46);
 
 var _optionsFromStrings2 = _interopRequireDefault(_optionsFromStrings);
 
-var _ErrorHandler = __webpack_require__(53);
+var _ErrorHandler = __webpack_require__(54);
 
 var _ErrorHandler2 = _interopRequireDefault(_ErrorHandler);
 
-var _exceptions = __webpack_require__(52);
+var _exceptions = __webpack_require__(53);
 
-var _defaults = __webpack_require__(46);
+var _defaults = __webpack_require__(47);
 
 var _defaults2 = _interopRequireDefault(_defaults);
 
@@ -357,23 +357,23 @@ var _CODE = __webpack_require__(2);
 
 var _CODE2 = __webpack_require__(4);
 
-var _EAN_UPC = __webpack_require__(12);
+var _EAN_UPC = __webpack_require__(13);
 
-var _ITF = __webpack_require__(22);
+var _ITF = __webpack_require__(23);
 
-var _MSI = __webpack_require__(26);
+var _MSI = __webpack_require__(27);
 
-var _pharmacode = __webpack_require__(33);
+var _pharmacode = __webpack_require__(34);
 
-var _codabar = __webpack_require__(34);
+var _codabar = __webpack_require__(35);
 
-var _CODE3 = __webpack_require__(35);
+var _CODE3 = __webpack_require__(36);
 
-var _GenericBarcode = __webpack_require__(39);
+var _GenericBarcode = __webpack_require__(40);
 
 exports.default = {
 	CODE39: _CODE.CODE39,
-	CODE128: _CODE2.CODE128, CODE128A: _CODE2.CODE128A, CODE128B: _CODE2.CODE128B, CODE128C: _CODE2.CODE128C,
+	CODE128: _CODE2.CODE128, CODE128A: _CODE2.CODE128A, CODE128B: _CODE2.CODE128B, CODE128C: _CODE2.CODE128C, CODE128ESC1: _CODE2.CODE128ESC1,
 	EAN13: _EAN_UPC.EAN13, EAN8: _EAN_UPC.EAN8, EAN5: _EAN_UPC.EAN5, EAN2: _EAN_UPC.EAN2, UPC: _EAN_UPC.UPC, UPCE: _EAN_UPC.UPCE,
 	ITF14: _ITF.ITF14,
 	ITF: _ITF.ITF,
@@ -528,7 +528,7 @@ exports.default = Barcode;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CODE128C = exports.CODE128B = exports.CODE128A = exports.CODE128 = undefined;
+exports.CODE128ESC1 = exports.CODE128C = exports.CODE128B = exports.CODE128A = exports.CODE128 = undefined;
 
 var _CODE128_AUTO = __webpack_require__(5);
 
@@ -546,12 +546,17 @@ var _CODE128C = __webpack_require__(11);
 
 var _CODE128C2 = _interopRequireDefault(_CODE128C);
 
+var _CODE128ESC = __webpack_require__(12);
+
+var _CODE128ESC2 = _interopRequireDefault(_CODE128ESC);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.CODE128 = _CODE128_AUTO2.default;
 exports.CODE128A = _CODE128A2.default;
 exports.CODE128B = _CODE128B2.default;
 exports.CODE128C = _CODE128C2.default;
+exports.CODE128ESC1 = _CODE128ESC2.default;
 
 /***/ }),
 /* 5 */
@@ -1064,31 +1069,79 @@ exports.default = CODE128C;
 
 
 Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _CODE2 = __webpack_require__(6);
+
+var _CODE3 = _interopRequireDefault(_CODE2);
+
+var _constants = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CODE128ESC1 = function (_CODE) {
+	_inherits(CODE128ESC1, _CODE);
+
+	function CODE128ESC1(string, options) {
+		_classCallCheck(this, CODE128ESC1);
+
+		return _possibleConstructorReturn(this, (CODE128ESC1.__proto__ || Object.getPrototypeOf(CODE128ESC1)).call(this, _constants.C_START_CHAR + string, options));
+	}
+
+	_createClass(CODE128ESC1, [{
+		key: 'valid',
+		value: function valid() {
+			return new RegExp('^' + _constants.C_CHARS + '+$').test(this.data);
+		}
+	}]);
+
+	return CODE128ESC1;
+}(_CODE3.default);
+
+exports.default = CODE128ESC1;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.UPCE = exports.UPC = exports.EAN2 = exports.EAN5 = exports.EAN8 = exports.EAN13 = undefined;
 
-var _EAN = __webpack_require__(13);
+var _EAN = __webpack_require__(14);
 
 var _EAN2 = _interopRequireDefault(_EAN);
 
-var _EAN3 = __webpack_require__(17);
+var _EAN3 = __webpack_require__(18);
 
 var _EAN4 = _interopRequireDefault(_EAN3);
 
-var _EAN5 = __webpack_require__(18);
+var _EAN5 = __webpack_require__(19);
 
 var _EAN6 = _interopRequireDefault(_EAN5);
 
-var _EAN7 = __webpack_require__(19);
+var _EAN7 = __webpack_require__(20);
 
 var _EAN8 = _interopRequireDefault(_EAN7);
 
-var _UPC = __webpack_require__(20);
+var _UPC = __webpack_require__(21);
 
 var _UPC2 = _interopRequireDefault(_UPC);
 
-var _UPCE = __webpack_require__(21);
+var _UPCE = __webpack_require__(22);
 
 var _UPCE2 = _interopRequireDefault(_UPCE);
 
@@ -1102,7 +1155,7 @@ exports.UPC = _UPC2.default;
 exports.UPCE = _UPCE2.default;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1116,9 +1169,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _constants = __webpack_require__(14);
+var _constants = __webpack_require__(15);
 
-var _EAN2 = __webpack_require__(15);
+var _EAN2 = __webpack_require__(16);
 
 var _EAN3 = _interopRequireDefault(_EAN2);
 
@@ -1227,7 +1280,7 @@ var EAN13 = function (_EAN) {
 exports.default = EAN13;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1263,7 +1316,7 @@ var EAN5_STRUCTURE = exports.EAN5_STRUCTURE = ['GGLLL', 'GLGLL', 'GLLGL', 'GLLLG
 var EAN13_STRUCTURE = exports.EAN13_STRUCTURE = ['LLLLLL', 'LLGLGG', 'LLGGLG', 'LLGGGL', 'LGLLGG', 'LGGLLG', 'LGGGLL', 'LGLGLG', 'LGLGGL', 'LGGLGL'];
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1275,9 +1328,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(14);
+var _constants = __webpack_require__(15);
 
-var _encoder = __webpack_require__(16);
+var _encoder = __webpack_require__(17);
 
 var _encoder2 = _interopRequireDefault(_encoder);
 
@@ -1361,7 +1414,7 @@ var EAN = function (_Barcode) {
 exports.default = EAN;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1371,7 +1424,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _constants = __webpack_require__(14);
+var _constants = __webpack_require__(15);
 
 // Encode data string
 var encode = function encode(data, structure, separator) {
@@ -1394,7 +1447,7 @@ var encode = function encode(data, structure, separator) {
 exports.default = encode;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1408,7 +1461,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _EAN2 = __webpack_require__(15);
+var _EAN2 = __webpack_require__(16);
 
 var _EAN3 = _interopRequireDefault(_EAN2);
 
@@ -1481,7 +1534,7 @@ var EAN8 = function (_EAN) {
 exports.default = EAN8;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1493,9 +1546,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(14);
+var _constants = __webpack_require__(15);
 
-var _encoder = __webpack_require__(16);
+var _encoder = __webpack_require__(17);
 
 var _encoder2 = _interopRequireDefault(_encoder);
 
@@ -1552,7 +1605,7 @@ var EAN5 = function (_Barcode) {
 exports.default = EAN5;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1564,9 +1617,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(14);
+var _constants = __webpack_require__(15);
 
-var _encoder = __webpack_require__(16);
+var _encoder = __webpack_require__(17);
 
 var _encoder2 = _interopRequireDefault(_encoder);
 
@@ -1616,7 +1669,7 @@ var EAN2 = function (_Barcode) {
 exports.default = EAN2;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1630,7 +1683,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.checksum = checksum;
 
-var _encoder = __webpack_require__(16);
+var _encoder = __webpack_require__(17);
 
 var _encoder2 = _interopRequireDefault(_encoder);
 
@@ -1787,7 +1840,7 @@ function checksum(number) {
 exports.default = UPC;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1799,7 +1852,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _encoder = __webpack_require__(16);
+var _encoder = __webpack_require__(17);
 
 var _encoder2 = _interopRequireDefault(_encoder);
 
@@ -1807,7 +1860,7 @@ var _Barcode2 = __webpack_require__(3);
 
 var _Barcode3 = _interopRequireDefault(_Barcode2);
 
-var _UPC = __webpack_require__(20);
+var _UPC = __webpack_require__(21);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1978,7 +2031,7 @@ function expandToUPCA(middleDigits, numberSystem) {
 exports.default = UPCE;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1989,11 +2042,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ITF14 = exports.ITF = undefined;
 
-var _ITF = __webpack_require__(23);
+var _ITF = __webpack_require__(24);
 
 var _ITF2 = _interopRequireDefault(_ITF);
 
-var _ITF3 = __webpack_require__(25);
+var _ITF3 = __webpack_require__(26);
 
 var _ITF4 = _interopRequireDefault(_ITF3);
 
@@ -2003,7 +2056,7 @@ exports.ITF = _ITF2.default;
 exports.ITF14 = _ITF4.default;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2015,7 +2068,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(24);
+var _constants = __webpack_require__(25);
 
 var _Barcode2 = __webpack_require__(3);
 
@@ -2078,7 +2131,7 @@ var ITF = function (_Barcode) {
 exports.default = ITF;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2093,7 +2146,7 @@ var END_BIN = exports.END_BIN = '11101';
 var BINARIES = exports.BINARIES = ['00110', '10001', '01001', '11000', '00101', '10100', '01100', '00011', '10010', '01010'];
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2105,7 +2158,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ITF2 = __webpack_require__(23);
+var _ITF2 = __webpack_require__(24);
 
 var _ITF3 = _interopRequireDefault(_ITF2);
 
@@ -2154,7 +2207,7 @@ var ITF14 = function (_ITF) {
 exports.default = ITF14;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2165,23 +2218,23 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MSI1110 = exports.MSI1010 = exports.MSI11 = exports.MSI10 = exports.MSI = undefined;
 
-var _MSI = __webpack_require__(27);
+var _MSI = __webpack_require__(28);
 
 var _MSI2 = _interopRequireDefault(_MSI);
 
-var _MSI3 = __webpack_require__(28);
+var _MSI3 = __webpack_require__(29);
 
 var _MSI4 = _interopRequireDefault(_MSI3);
 
-var _MSI5 = __webpack_require__(30);
+var _MSI5 = __webpack_require__(31);
 
 var _MSI6 = _interopRequireDefault(_MSI5);
 
-var _MSI7 = __webpack_require__(31);
+var _MSI7 = __webpack_require__(32);
 
 var _MSI8 = _interopRequireDefault(_MSI7);
 
-var _MSI9 = __webpack_require__(32);
+var _MSI9 = __webpack_require__(33);
 
 var _MSI10 = _interopRequireDefault(_MSI9);
 
@@ -2194,7 +2247,7 @@ exports.MSI1010 = _MSI8.default;
 exports.MSI1110 = _MSI10.default;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2274,7 +2327,7 @@ function addZeroes(number, n) {
 exports.default = MSI;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2284,11 +2337,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _MSI2 = __webpack_require__(27);
+var _MSI2 = __webpack_require__(28);
 
 var _MSI3 = _interopRequireDefault(_MSI2);
 
-var _checksums = __webpack_require__(29);
+var _checksums = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2313,7 +2366,7 @@ var MSI10 = function (_MSI) {
 exports.default = MSI10;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2348,7 +2401,7 @@ function mod11(number) {
 }
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2358,11 +2411,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _MSI2 = __webpack_require__(27);
+var _MSI2 = __webpack_require__(28);
 
 var _MSI3 = _interopRequireDefault(_MSI2);
 
-var _checksums = __webpack_require__(29);
+var _checksums = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2387,7 +2440,7 @@ var MSI11 = function (_MSI) {
 exports.default = MSI11;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2397,11 +2450,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _MSI2 = __webpack_require__(27);
+var _MSI2 = __webpack_require__(28);
 
 var _MSI3 = _interopRequireDefault(_MSI2);
 
-var _checksums = __webpack_require__(29);
+var _checksums = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2428,7 +2481,7 @@ var MSI1010 = function (_MSI) {
 exports.default = MSI1010;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2438,11 +2491,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _MSI2 = __webpack_require__(27);
+var _MSI2 = __webpack_require__(28);
 
 var _MSI3 = _interopRequireDefault(_MSI2);
 
-var _checksums = __webpack_require__(29);
+var _checksums = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2469,7 +2522,7 @@ var MSI1110 = function (_MSI) {
 exports.default = MSI1110;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2548,7 +2601,7 @@ var pharmacode = function (_Barcode) {
 exports.pharmacode = pharmacode;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2646,7 +2699,7 @@ var codabar = function (_Barcode) {
 exports.codabar = codabar;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2657,11 +2710,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.CODE93FullASCII = exports.CODE93 = undefined;
 
-var _CODE = __webpack_require__(36);
+var _CODE = __webpack_require__(37);
 
 var _CODE2 = _interopRequireDefault(_CODE);
 
-var _CODE93FullASCII = __webpack_require__(38);
+var _CODE93FullASCII = __webpack_require__(39);
 
 var _CODE93FullASCII2 = _interopRequireDefault(_CODE93FullASCII);
 
@@ -2671,7 +2724,7 @@ exports.CODE93 = _CODE2.default;
 exports.CODE93FullASCII = _CODE93FullASCII2.default;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2683,7 +2736,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _constants = __webpack_require__(37);
+var _constants = __webpack_require__(38);
 
 var _Barcode2 = __webpack_require__(3);
 
@@ -2787,7 +2840,7 @@ var CODE93 = function (_Barcode) {
 exports.default = CODE93;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2896,7 +2949,7 @@ var MULTI_SYMBOLS = exports.MULTI_SYMBOLS = {
 };
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2908,7 +2961,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _CODE2 = __webpack_require__(36);
+var _CODE2 = __webpack_require__(37);
 
 var _CODE3 = _interopRequireDefault(_CODE2);
 
@@ -2944,7 +2997,7 @@ var CODE93FullASCII = function (_CODE) {
 exports.default = CODE93FullASCII;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3005,7 +3058,7 @@ var GenericBarcode = function (_Barcode) {
 exports.GenericBarcode = GenericBarcode;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3022,7 +3075,7 @@ exports.default = function (old, replaceObj) {
 };
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3055,7 +3108,7 @@ function linearizeEncodings(encodings) {
 }
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3078,7 +3131,7 @@ function fixOptions(options) {
 }
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3092,15 +3145,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /* global HTMLCanvasElement */
 /* global SVGElement */
 
-var _getOptionsFromElement = __webpack_require__(44);
+var _getOptionsFromElement = __webpack_require__(45);
 
 var _getOptionsFromElement2 = _interopRequireDefault(_getOptionsFromElement);
 
-var _renderers = __webpack_require__(47);
+var _renderers = __webpack_require__(48);
 
 var _renderers2 = _interopRequireDefault(_renderers);
 
-var _exceptions = __webpack_require__(52);
+var _exceptions = __webpack_require__(53);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3192,7 +3245,7 @@ function newCanvasRenderProperties(imgElement) {
 exports.default = getRenderProperties;
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3202,11 +3255,11 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _optionsFromStrings = __webpack_require__(45);
+var _optionsFromStrings = __webpack_require__(46);
 
 var _optionsFromStrings2 = _interopRequireDefault(_optionsFromStrings);
 
-var _defaults = __webpack_require__(46);
+var _defaults = __webpack_require__(47);
 
 var _defaults2 = _interopRequireDefault(_defaults);
 
@@ -3239,7 +3292,7 @@ function getOptionsFromElement(element) {
 exports.default = getOptionsFromElement;
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3272,7 +3325,7 @@ function optionsFromStrings(options) {
 }
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3306,7 +3359,7 @@ var defaults = {
 exports.default = defaults;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3316,15 +3369,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _canvas = __webpack_require__(48);
+var _canvas = __webpack_require__(49);
 
 var _canvas2 = _interopRequireDefault(_canvas);
 
-var _svg = __webpack_require__(50);
+var _svg = __webpack_require__(51);
 
 var _svg2 = _interopRequireDefault(_svg);
 
-var _object = __webpack_require__(51);
+var _object = __webpack_require__(52);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -3333,7 +3386,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = { CanvasRenderer: _canvas2.default, SVGRenderer: _svg2.default, ObjectRenderer: _object2.default };
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3345,11 +3398,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _merge = __webpack_require__(40);
+var _merge = __webpack_require__(41);
 
 var _merge2 = _interopRequireDefault(_merge);
 
-var _shared = __webpack_require__(49);
+var _shared = __webpack_require__(50);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3446,7 +3499,9 @@ var CanvasRenderer = function () {
 			var font = options.fontOptions + " " + options.fontSize + "px " + options.font;
 
 			// Draw the text if displayValue is set
-			if (options.displayValue) {
+			do {
+				if (!options.displayValue) break;
+
 				var x, y;
 
 				if (options.textPosition == "top") {
@@ -3456,23 +3511,79 @@ var CanvasRenderer = function () {
 				}
 
 				ctx.font = font;
+				ctx.textBaseline = 'bottom';
+				ctx.textAlign = 'left';
 
-				// Draw the text in the correct X depending on the textAlign option
+				var text = encoding.text;
+				switch (options.format) {
+					case 'CODE128ESC1':
+						options.textAlign = "justify";
+						if (text.length == 20) {
+							text = text.substr(0, 5) + ' ' + text.substr(5, 5) + ' ' + text.substr(10, 5) + ' ' + text.substr(15, 5);
+						}
+						break;
+
+					default:
+						break;
+				}
+
+				// 两端对齐模式
+				if (options.textAlign == "justify") {
+					var textWidth = ctx.measureText(text).width;
+					var barcodeWidth = encoding.width;
+
+					// 如果文本为空或只有一个字符，直接绘制
+					if (text.length <= 1) {
+						ctx.fillText(text, 0, y);
+						break;
+					}
+
+					// 如果文本宽度大于条码宽度，缩小字体或截断
+					if (textWidth > barcodeWidth) {
+						// 尝试缩小字体
+						var scaleFactor = barcodeWidth / textWidth * 0.95;
+						var newFontSize = Math.floor(options.fontSize * scaleFactor);
+						ctx.font = options.fontOptions + " " + newFontSize + "px " + options.font;
+						textWidth = ctx.measureText(text).width;
+
+						if (textWidth > barcodeWidth) {
+							// 如果缩小后仍然超出，使用左对齐并截断提示
+							console.warn('text too long');
+							ctx.fillText(text, 0, y);
+							break;
+						}
+					}
+
+					// 计算总间距
+					var totalSpacing = barcodeWidth - textWidth;
+					var spacingPerChar = totalSpacing / (text.length - 1);
+
+					// 逐个绘制字符
+					var currentX = 0;
+					for (var i = 0; i < text.length; i++) {
+						var char = text[i];
+						ctx.fillText(char, currentX, y);
+						if (i < text.length - 1) {
+							currentX += ctx.measureText(char).width + spacingPerChar;
+						}
+					}
+					break;
+				}
+
+				// 标准对齐模式
 				if (options.textAlign == "left" || encoding.barcodePadding > 0) {
 					x = 0;
 					ctx.textAlign = 'left';
 				} else if (options.textAlign == "right") {
 					x = encoding.width - 1;
 					ctx.textAlign = 'right';
+				} else {
+					x = encoding.width / 2;
+					ctx.textAlign = 'center';
 				}
-				// In all other cases, center the text
-				else {
-						x = encoding.width / 2;
-						ctx.textAlign = 'center';
-					}
 
-				ctx.fillText(encoding.text, x, y);
-			}
+				ctx.fillText(text, x, y);
+			} while (0);
 		}
 	}, {
 		key: "moveCanvasDrawing",
@@ -3497,7 +3608,7 @@ var CanvasRenderer = function () {
 exports.default = CanvasRenderer;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3508,7 +3619,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getTotalWidthOfEncodings = exports.calculateEncodingAttributes = exports.getBarcodePadding = exports.getEncodingHeight = exports.getMaximumHeightOfEncodings = undefined;
 
-var _merge = __webpack_require__(40);
+var _merge = __webpack_require__(41);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -3604,7 +3715,7 @@ exports.calculateEncodingAttributes = calculateEncodingAttributes;
 exports.getTotalWidthOfEncodings = getTotalWidthOfEncodings;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3616,11 +3727,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _merge = __webpack_require__(40);
+var _merge = __webpack_require__(41);
 
 var _merge2 = _interopRequireDefault(_merge);
 
-var _shared = __webpack_require__(49);
+var _shared = __webpack_require__(50);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3804,7 +3915,7 @@ var SVGRenderer = function () {
 exports.default = SVGRenderer;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3840,7 +3951,7 @@ var ObjectRenderer = function () {
 exports.default = ObjectRenderer;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3913,7 +4024,7 @@ exports.InvalidElementException = InvalidElementException;
 exports.NoElementException = NoElementException;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
