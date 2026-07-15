@@ -6,7 +6,7 @@
   },
   {
     "name": "code128",
-    "names": ["CODE128, CODE128A, CODE128B, CODE128C"],
+    "names": ["CODE128, CODE128A, CODE128B, CODE128C, CODE128ESC1"],
     "barcodeFile": "./CODE128"
   },
   {

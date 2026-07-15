@@ -107,7 +107,9 @@ var CanvasRenderer = function () {
 			var font = options.fontOptions + " " + options.fontSize + "px " + options.font;
 
 			// Draw the text if displayValue is set
-			if (options.displayValue) {
+			do {
+				if (!options.displayValue) break;
+
 				var x, y;
 
 				if (options.textPosition == "top") {
@@ -117,23 +119,79 @@ var CanvasRenderer = function () {
 				}
 
 				ctx.font = font;
+				ctx.textBaseline = 'bottom';
+				ctx.textAlign = 'left';
 
-				// Draw the text in the correct X depending on the textAlign option
+				var text = encoding.text;
+				switch (options.format) {
+					case 'CODE128ESC1':
+						options.textAlign = "justify";
+						if (text.length == 20) {
+							text = text.substr(0, 5) + ' ' + text.substr(5, 5) + ' ' + text.substr(10, 5) + ' ' + text.substr(15, 5);
+						}
+						break;
+
+					default:
+						break;
+				}
+
+				// 两端对齐模式
+				if (options.textAlign == "justify") {
+					var textWidth = ctx.measureText(text).width;
+					var barcodeWidth = encoding.width;
+
+					// 如果文本为空或只有一个字符，直接绘制
+					if (text.length <= 1) {
+						ctx.fillText(text, 0, y);
+						break;
+					}
+
+					// 如果文本宽度大于条码宽度，缩小字体或截断
+					if (textWidth > barcodeWidth) {
+						// 尝试缩小字体
+						var scaleFactor = barcodeWidth / textWidth * 0.95;
+						var newFontSize = Math.floor(options.fontSize * scaleFactor);
+						ctx.font = options.fontOptions + " " + newFontSize + "px " + options.font;
+						textWidth = ctx.measureText(text).width;
+
+						if (textWidth > barcodeWidth) {
+							// 如果缩小后仍然超出，使用左对齐并截断提示
+							console.warn('text too long');
+							ctx.fillText(text, 0, y);
+							break;
+						}
+					}
+
+					// 计算总间距
+					var totalSpacing = barcodeWidth - textWidth;
+					var spacingPerChar = totalSpacing / (text.length - 1);
+
+					// 逐个绘制字符
+					var currentX = 0;
+					for (var i = 0; i < text.length; i++) {
+						var char = text[i];
+						ctx.fillText(char, currentX, y);
+						if (i < text.length - 1) {
+							currentX += ctx.measureText(char).width + spacingPerChar;
+						}
+					}
+					break;
+				}
+
+				// 标准对齐模式
 				if (options.textAlign == "left" || encoding.barcodePadding > 0) {
 					x = 0;
 					ctx.textAlign = 'left';
 				} else if (options.textAlign == "right") {
 					x = encoding.width - 1;
 					ctx.textAlign = 'right';
+				} else {
+					x = encoding.width / 2;
+					ctx.textAlign = 'center';
 				}
-				// In all other cases, center the text
-				else {
-						x = encoding.width / 2;
-						ctx.textAlign = 'center';
-					}
 
-				ctx.fillText(encoding.text, x, y);
-			}
+				ctx.fillText(text, x, y);
+			} while (0);
 		}
 	}, {
 		key: "moveCanvasDrawing",

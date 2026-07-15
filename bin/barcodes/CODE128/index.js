@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CODE128C = exports.CODE128B = exports.CODE128A = exports.CODE128 = undefined;
+exports.CODE128ESC1 = exports.CODE128C = exports.CODE128B = exports.CODE128A = exports.CODE128 = undefined;
 
 var _CODE128_AUTO = require('./CODE128_AUTO.js');
 
@@ -21,9 +21,14 @@ var _CODE128C = require('./CODE128C.js');
 
 var _CODE128C2 = _interopRequireDefault(_CODE128C);
 
+var _CODE128ESC = require('./CODE128ESC1.js');
+
+var _CODE128ESC2 = _interopRequireDefault(_CODE128ESC);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.CODE128 = _CODE128_AUTO2.default;
 exports.CODE128A = _CODE128A2.default;
 exports.CODE128B = _CODE128B2.default;
 exports.CODE128C = _CODE128C2.default;
+exports.CODE128ESC1 = _CODE128ESC2.default;
